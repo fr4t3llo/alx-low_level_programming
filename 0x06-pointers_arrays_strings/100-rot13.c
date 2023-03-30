@@ -1,26 +1,26 @@
-#include <unistd.h>
-
-int		main(int ac, char **av)
+#include "main.h"
+/**
+ * rot13 - encodes a string into rot13
+ * @s: string to encode
+ *
+ * Return: address of s
+ */
+char *rot13(char *s)
 {
-	int i;
+	int i, j;
+	char a[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char b[] = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
 
-	i = 0;
-	if (ac == 2)
+	for (i = 0; *(s + i); i++)
 	{
-		while (av[1][i] != '\0')
+		for (j = 0; j < 52; j++)
 		{
-			if (av[1][i] >= 'A' && av[1][i] <= 'M')
-				av[1][i] += 13;
-			else if (av[1][i] >= 'N' && av[1][i] <= 'Z')
-				av[1][i] -= 13;
-			else if (av[1][i] >= 'a' && av[1][i] <= 'm')
-				av[1][i] += 13;
-			else if (av[1][i] >= 'n' && av[1][i] <= 'z')
-				av[1][i] -= 13;
-			write(1, &av[1][i], 1);
-			i++;
+			if (a[j] == *(s + i))
+			{
+				*(s + i) = b[j];
+				break;
+			}
 		}
 	}
-	write(1, "\n", 1);
-	return (0);
+	return (s);
 }
